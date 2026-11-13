@@ -1,0 +1,107 @@
+THE COST OF CONNECTION
+Assignment Four | Code sources and what's in the ZIP
+
+Why I made this map
+
+My earlier QGIS map looked at where housing applications were filed
+near rail in Los Angeles. For this assignment, I wanted to ask what
+living near transit looks like for renters. The feedback on my proposal
+gave me two places to start. First, compare rent and rent burden. Then,
+look at where people in those areas work.
+
+Hyde Park and Palms made the first question concrete for me. In the
+two tracts I chose, the estimated median rents are $1,866 and $1,881
+a month. The estimated shares of rent-burdened households are 83.0%
+and 42.1%. That contrast is why I put rent and burden side by side
+in a four-cell legend.
+
+Where the code and design came from
+
+I used the course's Astro/MapLibre template as a reference for putting
+several layers and views on one map. I used OpenAI Codex to write the
+HTML, CSS, and JavaScript for this version, prepare the data, and check
+the interactions in a browser. The site uses plain HTML, CSS, and
+JavaScript. The GeoJSON polygon and line examples informed how the map
+draws the tracts and connections. The MapLibre hover example informed
+how a tract highlights when you move the cursor over it.
+
+Course template
+https://github.com/design-practices/astro-maplibre-template/tree/c15a1e44726b858cb7f04e3249639ed754663f8e
+MapLibre examples
+https://maplibre.org/maplibre-gl-js/docs/examples/add-a-geojson-polygon/
+https://maplibre.org/maplibre-gl-js/docs/examples/add-a-geojson-line/
+https://maplibre.org/maplibre-gl-js/docs/examples/create-a-hover-effect/
+
+For the look, I went back to my Hailun project. I liked how the dark
+map and the peach and cyan accents made the data easy to pick out.
+Here I used those colors for the rent and burden categories and the
+workplace links. The dashed rail lines and station rings carry over
+from my QGIS map. The map now fills the screen. I moved the legend
+to the lower edge and put tract details, filters, and sources in
+panels that can be opened when needed.
+
+Vanishing Network: Hailun
+https://github.com/jzhang2468/mapping-system-final-project/tree/e608522901dc06c649be2cf32feed8f9e9c44724
+Interactive Mapping Part 1
+https://designpractices.org/tutorials/08-interactive-mapping-part-1/
+
+What the map measures
+
+Rent. The Census Bureau's 2019–2023 ACS tables B25064 and B25070
+provide estimated median gross rent and the share of renter households
+spending at least 30% of their income on gross rent. The burden rate
+uses households for which that share could be calculated. The four
+categories split at $1,884 and 58.0065%, the medians among the 2,426
+tracts with both estimates. Values at the cutoff go in the higher
+group. Tract details show the rent estimate's margin of error where
+available. The ACS upper-end code 3501 is displayed as $3,500+.
+https://data.census.gov/table/ACSDT5Y2023.B25064?g=050XX00US06037
+https://data.census.gov/table/ACSDT5Y2023.B25070?g=050XX00US06037
+
+Rail. The rings are 800-meter straight-line buffers around stations
+in the November 13, 2026 LA Metro rail feed. A tract counts as near
+rail if the combined buffers cover at least half its TIGER/Line tract
+area. The rail snapshot is newer than the rent estimates. The buffers
+measure proximity, so actual walking distances can differ.
+https://developer.metro.net/gtfs-schedule-data/
+https://gitlab.com/LACMTA/gtfs_rail/-/raw/a939fcc8ac7a2b6c26bf6962b91e8b0429649c88/gtfs_rail.zip
+https://www2.census.gov/geo/tiger/TIGER2023/TRACT/tl_2023_06_tract.zip
+
+Work. The 2024 Census LODES California file was grouped by home and
+workplace tract. For each home tract, the map shows up to 12 workplace
+tracts in LA County, ranked by primary jobs. The records include
+workers across housing tenures. The moving dots show the direction
+from home to workplace. The arcs join representative tract points,
+and the data gives no travel route or mode.
+https://lehd.ces.census.gov/data/lodes/LODES8/ca/od/ca_od_main_JT01_2024.csv.gz
+https://lehd.ces.census.gov/data/lodes/LODES8/LODESTechDoc8.5.pdf
+https://onthemap.ces.census.gov/
+
+Basemap. Census cartographic boundaries provide the outlines.
+Roads, parks, water, and place labels come from OpenStreetMap via
+OpenFreeMap and OpenMapTiles. The OpenStreetMap-derived data is
+© OpenStreetMap contributors and is available under ODbL 1.0.
+https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html
+https://www.openstreetmap.org/copyright
+https://opendatacommons.org/licenses/odbl/1-0/
+https://openfreemap.org/quick_start/
+https://openmaptiles.org/docs/schema/
+
+What's in the ZIP
+
+Unzip the folder and open index.html in a current desktop browser
+with WebGL. Keep the files and folders together so the atlas can
+open offline. If you'd rather run it through a local server, run
+python3 -m http.server 8000 from the extracted folder and open
+http://127.0.0.1:8000/.
+
+index.html holds the page. atlas.css is the visual style. atlas.js
+creates the MapLibre map and connects the chapter buttons, legend,
+and tract selections to the map layers. data/ has the prepared map
+layers and the bundle used for offline opening. vendor/ and fonts/
+include MapLibre GL JS 5.6.1, Inter Variable, and their licenses.
+
+The reproduce/ folder has the scripts used to build the map data.
+The Python scripts list their inputs and dependencies. If the data
+changes, run node reproduce/build_standalone.cjs to update the
+offline bundle.

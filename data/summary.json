@@ -1,0 +1,34 @@
+{
+  "tractCount": 2495,
+  "classifiedCount": 2426,
+  "waterOnlyTractsOmitted": 3,
+  "thresholds": {
+    "rent": 1884.0,
+    "burden": 58.006521986785145,
+    "bufferMeters": 800,
+    "railCoverage": 50
+  },
+  "counts": {
+    "lower-rent-lower-burden": 526,
+    "higher-rent-higher-burden": 526,
+    "lower-rent-higher-burden": 687,
+    "higher-rent-lower-burden": 687,
+    "no-data": 69
+  },
+  "nearCounts": {
+    "lower-rent-lower-burden": 71,
+    "higher-rent-higher-burden": 27,
+    "lower-rent-higher-burden": 112,
+    "higher-rent-lower-burden": 43,
+    "no-data": 5
+  },
+  "railNearCount": 258,
+  "railGeometrySensitivityChangedTracts": 2,
+  "stationCount": 111,
+  "railFeedDate": "2026-11-13",
+  "railFeedCommit": "a939fcc8ac7a2b6c26bf6962b91e8b0429649c88",
+  "comparison": [
+    "06037234600",
+    "06037269909"
+  ]
+}

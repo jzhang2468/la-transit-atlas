@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive atlas of rent, rail access and job destinations in Los Angeles County.">
+  <meta name="theme-color" content="#111a22">
+  <title>The Cost of Connection · Los Angeles</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="./atlas.css">
+  <script defer src="./vendor/maplibre-gl.js"></script>
+  <script defer src="./atlas.js"></script>
+</head>
+<body>
+  <a class="skip" href="#map">Skip to the map</a>
+  <main id="explore" class="atlas" aria-label="Interactive Los Angeles County atlas">
+    <div class="map-shell">
+      <div id="map" aria-label="Interactive map of Los Angeles County. Use the map or the tract finder to select an area." tabindex="0"></div>
+      <div class="map-shade" aria-hidden="true"></div>
+      <div id="place-labels" aria-hidden="true"></div>
+      <canvas id="flow-motion" aria-hidden="true" hidden></canvas>
+      <div id="map-message" class="map-message" role="status">Loading the atlas…</div>
+      <div id="hover-card" class="hover-card" hidden></div>
+    </div>
+
+    <header class="map-header">
+      <div class="wordmark">
+        <span class="survey-mark" aria-hidden="true">LA</span>
+        <div><h1>The Cost of Connection</h1><p>Los Angeles County, California</p></div>
+      </div>
+      <nav class="chapters" aria-label="Map chapters">
+        <button type="button" data-mode="housing" aria-pressed="true"><span class="chapter-no" aria-hidden="true">01</span>Rent &amp; burden</button>
+        <button type="button" data-mode="rail" aria-pressed="false"><span class="chapter-no" aria-hidden="true">02</span>Rail proximity</button>
+        <button type="button" data-mode="commute" aria-pressed="false"><span class="chapter-no" aria-hidden="true">03</span>Where people work</button>
+      </nav>
+      <div class="map-heading">
+        <p id="map-title">Median rent × renter cost burden</p>
+        <p id="map-subtitle">ACS 2019–2023</p>
+      </div>
+    </header>
+
+    <div class="map-actions" aria-label="Map extent">
+      <button id="county-view" type="button" title="Show all of Los Angeles County">County</button>
+      <button id="reset-view" type="button" title="Return to the LA Basin view">Basin</button>
+    </div>
+
+    <aside class="side" aria-label="Map tools and details">
+      <div class="dock-bar">
+        <button id="show-guide" type="button" aria-controls="guide-view" aria-expanded="false">Guide</button>
+        <button id="show-selection" type="button" aria-controls="selection" aria-expanded="false">Selection</button>
+        <button id="close-panel" type="button" aria-label="Collapse map panel" hidden>×</button>
+      </div>
+      <div class="dock-content" hidden>
+        <div id="guide-view">
+          <div id="chapter-panel" class="chapter-panel">
+            <h2>High rent, high strain?</h2>
+          </div>
+          <details id="finder" class="finder">
+            <summary>Find a census tract</summary>
+            <form id="tract-form">
+              <label class="sr-only" for="tract-input">11-digit Census GEOID or tract number</label>
+              <input id="tract-input" name="tract" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 06037… or 2073.01" required>
+              <button type="submit">Go</button>
+            </form>
+            <p id="finder-feedback" role="status"></p>
+          </details>
+        </div>
+        <div id="selection" class="selection" aria-live="polite" hidden></div>
+      </div>
+    </aside>
+
+    <div class="map-caption">
+      <p id="map-instruction">Select a tract to inspect its rent and burden.</p>
+      <div id="map-key" class="map-key" aria-label="Map legend"></div>
+    </div>
+
+    <div class="source-links">
+      <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>
+      <button id="open-methods" type="button" aria-haspopup="dialog">Data &amp; methods <span aria-hidden="true">↗</span></button>
+    </div>
+    <dialog id="methods" class="methods" aria-labelledby="methods-title">
+      <header class="methods-head">
+        <h2 id="methods-title">Data &amp; methods</h2>
+        <form method="dialog"><button type="submit" aria-label="Close data and methods" autofocus>×</button></form>
+      </header>
+      <div class="method-grid">
+        <div>
+          <h3>Rent and burden</h3>
+          <p>Gross rent includes rent and tenant-paid utilities. A household is rent burdened when gross rent is at least 30% of household income. The tract rate excludes households for which the Census Bureau could not compute that share. Both axes split at the median among county tracts with both measures.</p>
+          <p><a href="https://data.census.gov/table/ACSDT5Y2023.B25064?g=050XX00US06037">ACS B25064</a> · <a href="https://data.census.gov/table/ACSDT5Y2023.B25070?g=050XX00US06037">ACS B25070</a></p>
+        </div>
+        <div>
+          <h3>Proximity to Metro rail</h3>
+          <p>The atlas marks a tract as near rail when at least half its area falls within 800 m of a Metro rail station. The rings measure straight-line distance and the calculation dissolves overlaps. The comparison is descriptive. Station geometry comes from a later snapshot than the housing estimates.</p>
+          <p><a href="https://developer.metro.net/gtfs-schedule-data/">LA Metro GTFS</a></p>
+        </div>
+        <div>
+          <h3>Home to workplace</h3>
+          <p>Each selected tract shows up to 12 LA County workplace tracts ranked by the number of primary jobs held by its residents. Schematic arcs connect representative tract points. Moving dots indicate direction. These records cover workers across all tenures and contain neither travel mode nor route. The in-state totals exclude out-of-state workplaces.</p>
+          <p><a href="https://lehd.ces.census.gov/data/">Census LEHD / LODES</a> · <a href="https://onthemap.ces.census.gov/">OnTheMap</a></p>
+        </div>
+      </div>
+      <footer class="method-credits">
+        <p>Basemap: U.S. Census Bureau · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a href="https://openfreemap.org/">OpenFreeMap</a> · © <a href="https://openmaptiles.org/">OpenMapTiles</a></p>
+        <a href="./CODE-SOURCES.txt">Code sources &amp; files <span aria-hidden="true">↗</span></a>
+      </footer>
+    </dialog>
+  </main>
+</body>
+</html>
