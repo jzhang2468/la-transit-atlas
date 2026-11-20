@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Compare renter housing conditions and evening Metro timetables in two Los Angeles census tracts.">
+  <title>Evening Bus Service · The Cost of Connection</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./neighborhoods.css">
+  <script defer src="./neighborhoods.js"></script>
+</head>
+<body>
+  <a class="skip" href="#maps">Skip to the comparison maps</a>
+  <header class="masthead">
+    <a class="identity" href="./index.html">
+      <span><strong>The Cost of Connection</strong><small>Los Angeles County, California</small></span>
+    </a>
+    <nav aria-label="Atlas navigation"><a href="./index.html">Atlas overview</a><a href="#methods">Data &amp; methods</a></nav>
+  </header>
+  <main>
+    <div class="intro">
+      <div>
+        <h1>Evening Bus Service in Van Nuys and Reseda</h1>
+        <p class="deck" id="study-dates">City of Los Angeles · Renter conditions and scheduled Metro bus service</p>
+      </div>
+      <p class="intro-text" id="intro-text">Compare the evening bus schedule at two stops in Los Angeles tracts with similar renter housing conditions.</p>
+    </div>
+    <p class="load-status" id="load-status" role="status">Loading maps and timetables…</p>
+    <div id="atlas-content" hidden>
+      <section id="maps" aria-label="Paired neighborhood maps">
+        <div class="maps-toolbar">
+          <ul class="legend" aria-label="Map legend">
+            <li class="legend-title">Legend</li><li><i class="key-tract"></i>Census tract</li>
+            <li><i class="key-route"></i>Sampled bus route</li>
+            <li><i class="key-nearby"></i>Other active stop</li>
+            <li><i class="key-stop"></i>Selected stop</li>
+          </ul>
+          <div class="view-control" role="group" aria-label="Map extent for both neighborhoods">
+            <span>Both maps</span><button data-view="tract" aria-pressed="true">Tract</button><button data-view="stop" aria-pressed="false">Stop</button>
+          </div>
+        </div>
+        <div class="cases" id="cases"></div>
+      </section>
+      <section id="schedule" class="schedule" aria-labelledby="schedule-heading">
+        <div class="schedule-header">
+          <div><p class="section-tag" id="service-date"></p><h2 id="schedule-heading">Evening departures</h2></div>
+          <label class="arrival-control" for="arrival">
+            <span>Arrive at the stop <output id="arrival-time" for="arrival"></output></span>
+            <input id="arrival" type="range" step="1">
+          </label>
+        </div>
+        <p class="chart-intro">Each tick marks a scheduled departure in the direction shown. Move the arrival time to compare the next bus at each stop.</p>
+        <div id="timetable"></div>
+        <details class="times-list"><summary>All departure times</summary><div id="exact-times"></div></details>
+        <p class="sr-only" id="arrival-announcement" aria-live="polite"></p>
+      </section>
+      <details class="methods" id="methods">
+        <summary>Data &amp; methods</summary>
+        <div class="methods-body"><div id="method-notes"></div><div><h3>Sources</h3><ul id="source-links"></ul></div></div>
+      </details>
+      <footer class="plate-links"><a href="./evening-buses.pdf">Download the map (PDF)</a><a href="./index.html">Return to atlas</a></footer>
+    </div>
+    <noscript><p>Enable JavaScript to explore the comparison maps and timetables.</p></noscript>
+  </main>
+</body>
+</html>

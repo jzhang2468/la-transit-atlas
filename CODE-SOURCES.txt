@@ -105,3 +105,27 @@ The reproduce/ folder has the scripts used to build the map data.
 The Python scripts list their inputs and dependencies. If the data
 changes, run node reproduce/build_standalone.cjs to update the
 offline bundle.
+
+Final atlas addition | Evening bus service in Van Nuys and Reseda
+
+The fourth chapter pairs census tracts 1283.03 and 1325.02 from the
+original high-burden, lower-rail-proximity group. Its selection uses
+the 2023 rail map supplied with the project. Rent burden and vehicle
+availability come from different 2019–2023 ACS tables. The bus
+timetable covers two named stops, one line and one direction per stop,
+on October 30, 2026 from 7 to 9 p.m. Pacific. The chapter's Data &
+methods section links to the Census, city and archived Metro sources.
+
+neighborhoods.html, neighborhoods.css and neighborhoods.js draw the
+paired maps and interactive departure strips using native browser
+canvas and HTML. data/neighborhoods.json holds the derived data.
+reproduce/read_map1_classes.py checks the original map colors against
+tract geometry. reproduce/prepare_neighborhoods.py checks the two
+selected tracts and builds their streets, route shapes and schedules.
+The README-style instructions at the top of both scripts identify
+their inputs. The PDF is evening-buses.pdf. Its overview includes
+OpenStreetMap-derived parks and water from the atlas basemap.
+
+OpenAI Codex assisted with GIS processing, interface code, print
+layout and testing. The print and web cartography follows the
+supplied Mapping TOC Housing Applications Near Rail Transit plate.
