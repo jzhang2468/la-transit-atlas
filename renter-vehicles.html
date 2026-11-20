@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore where rent burden and limited household vehicle availability coincide in Los Angeles census tracts.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Rent Burden and Vehicle Availability · The Cost of Connection</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="./renter-vehicles.css">
+  <script defer src="./vendor/maplibre-gl.js"></script>
+  <script defer src="./renter-vehicles.js"></script>
+</head>
+<body>
+  <a class="skip" href="#city-map">Skip to map</a>
+  <header class="masthead">
+    <a class="identity" href="./index.html"><strong>The Cost of Connection</strong><small>Los Angeles County, California</small></a>
+    <nav aria-label="Atlas navigation"><a href="./index.html">Atlas overview</a><a href="#methods">Data &amp; methods</a></nav>
+  </header>
+  <main>
+    <header class="intro">
+      <h1>Rent Burden and Vehicle Availability</h1>
+      <p class="deck">City of Los Angeles · Renter households by census tract, 2019–2023</p>
+    </header>
+    <div class="plate">
+      <section class="map-column" aria-label="Interactive tract map">
+        <div class="map-toolbar">
+          <span>Map extent</span>
+          <div id="extent" role="group" aria-label="Map extent">
+            <button type="button" data-region="city" aria-pressed="true">Citywide</button>
+            <button type="button" data-region="valley" aria-pressed="false">Valley</button>
+            <button type="button" data-region="central" aria-pressed="false">Central LA</button>
+            <button type="button" data-region="harbor" aria-pressed="false">Harbor</button>
+          </div>
+        </div>
+        <div class="map-frame">
+          <div id="city-map" tabindex="0" aria-label="Interactive map. Click a census tract or use the tract selector to inspect its renter estimates."></div>
+          <div class="north" aria-hidden="true"><span>N</span><b></b></div>
+          <p class="map-message" id="map-message" role="status">Loading tract map…</p>
+        </div>
+        <div class="map-caption"><p><i class="boundary-key"></i>Los Angeles city boundary</p><p>Basemap © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p></div>
+      </section>
+      <aside class="sidebar" aria-label="Map legend and tract details">
+        <section class="summary-block" aria-labelledby="summary-title">
+          <h2 id="summary-title">Where both are high</h2>
+          <p id="summary-text" aria-live="polite">Loading estimates…</p>
+        </section>
+        <section class="legend-block" aria-labelledby="legend-title">
+          <div class="label-row"><h2 id="legend-title">Legend</h2><button type="button" id="all" class="text-button" disabled>Show all</button></div>
+          <p class="hint">Select a cell to isolate its tracts.</p>
+          <div class="matrix" role="group" aria-label="Tract categories by rent burden and share of renters without a vehicle">
+            <p class="axis-title">Rent burden</p>
+            <span class="col-label lower">Lower</span><span class="col-label higher">High</span>
+            <span class="y-axis">Renters without a vehicle</span>
+            <span class="row-label top">High</span><span class="row-label bottom">Lower</span>
+            <button type="button" class="cell vehicle" data-category="vehicle" aria-pressed="false"><strong>—</strong><small>tracts</small></button>
+            <button type="button" class="cell both" data-category="both" aria-pressed="false"><strong>—</strong><small>tracts</small></button>
+            <button type="button" class="cell neither" data-category="neither" aria-pressed="false"><strong>—</strong><small>tracts</small></button>
+            <button type="button" class="cell burden" data-category="burden" aria-pressed="false"><strong>—</strong><small>tracts</small></button>
+          </div>
+          <button type="button" class="nodata" data-category="no-data" aria-pressed="false"><i></i>Missing estimate <span id="missing-count"></span></button>
+          <p id="thresholds" class="thresholds"></p>
+          <span id="filter-status" class="sr-only" role="status"></span>
+        </section>
+        <section class="tract-block" aria-labelledby="tract-heading">
+          <h2 id="tract-heading"><label for="tract-picker">Inspect a tract</label></h2>
+          <select id="tract-picker"><option value="">Select a tract on the map or list</option></select>
+          <div id="inspect" aria-live="polite"></div>
+        </section>
+      </aside>
+    </div>
+    <details class="methods" id="methods">
+      <summary>Data &amp; methods</summary>
+      <div class="methods-body"><div id="method-notes"></div><div><h3>Sources</h3><ul id="source-list"></ul></div></div>
+    </details>
+    <footer><a href="./renter-vehicles.pdf">Download the map (PDF)</a><a href="./index.html">Return to atlas</a></footer>
+    <noscript><p>JavaScript enables the tract filters and map. The map is also available as a <a href="./renter-vehicles.pdf">PDF</a>.</p></noscript>
+  </main>
+</body>
+</html>

@@ -129,3 +129,22 @@ OpenStreetMap-derived parks and water from the atlas basemap.
 OpenAI Codex assisted with GIS processing, interface code, print
 layout and testing. The print and web cartography follows the
 supplied Mapping TOC Housing Applications Near Rail Transit plate.
+
+Final atlas addition | Rent burden and renter vehicle availability
+
+Chapter 05 compares two 2019–2023 ACS five-year tract estimates for
+the same 1,108 study tracts as the original City of Los Angeles map.
+B25070 gives the share of cash-rent households with a computable
+rent-to-income ratio that spend at least 30% on gross rent. B25044
+gives the share of all renter households with zero vehicles available.
+The upper quartile of valid tract estimates defines "high" separately
+for each indicator. The two tables measure separate aggregates.
+
+https://api.census.gov/data/2023/acs/acs5/groups/B25070.html
+https://api.census.gov/data/2023/acs/acs5/groups/B25044.html
+
+renter-vehicles.html, renter-vehicles.css and renter-vehicles.js
+provide the interactive map. data/renter-vehicles.json contains
+the derived tract data, and renter-vehicles.pdf is the print plate.
+reproduce/prepare_renter_vehicles.py documents how to build the data.
+OpenAI Codex assisted with the GIS processing, code, layout and QA.

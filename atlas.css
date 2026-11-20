@@ -274,10 +274,10 @@ button.key-item:hover, button.key-item[aria-pressed=true] { border-color: var(--
   .dock-content { margin: 0 0 5px; }
 }
 @media (max-width: 480px) {
-  .chapters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .chapters > :nth-child(odd) { border-left: 0; }
-  .chapters > :nth-child(n+3) { border-top: 1px solid var(--rule); }
-  .chapters > * { justify-content: start; }
+  .chapters { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .chapters button { grid-column: span 2; }
+  .chapters a { grid-column: span 3; border-top: 1px solid var(--rule); }
+  .chapters a:first-of-type { border-left: 0; }
 }
 @media (max-width: 350px) {
   .wordmark h1 { font-size: 14px; }
