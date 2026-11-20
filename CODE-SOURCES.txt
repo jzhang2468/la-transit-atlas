@@ -148,3 +148,5 @@ provide the interactive map. data/renter-vehicles.json contains
 the derived tract data, and renter-vehicles.pdf is the print plate.
 reproduce/prepare_renter_vehicles.py documents how to build the data.
 OpenAI Codex assisted with the GIS processing, code, layout and QA.
+The chapter 05 north arrow reproduces the vector artwork in the original
+TOC map, drawn with QGIS NorthArrow_01. Both editions use north-arrow.svg.

@@ -34,9 +34,7 @@ h1 {font:750 clamp(32px,3.25vw,53px)/1.08 var(--sans);letter-spacing:-.044em}
 #city-map {position:absolute;inset:0}
 .map-message {position:absolute;bottom:44px;left:10px;right:10px;width:fit-content;max-width:calc(100% - 20px);background:#fffffff5;padding:6px 10px;border:1px solid var(--rule);font-size:14px;z-index:3}
 [hidden] {display:none!important}
-.north {position:absolute;left:12px;top:12px;width:32px;height:32px;border-radius:50%;border:1px solid #393a37;display:grid;place-content:center;justify-items:center;pointer-events:none;background:#fffc;gap:1px}
-.north span {font:bold 8px var(--sans)}
-.north b {width:0;height:0;border-inline:3px solid transparent;border-bottom:10px solid #333}
+.north {position:absolute;right:clamp(12px,4.2%,34px);top:clamp(11px,2.2%,19px);width:clamp(40px,6.2%,52px);height:auto;pointer-events:none}
 .map-caption {display:flex;justify-content:space-between;align-items:center;gap:7px 12px;flex-wrap:wrap;padding:6px 0 8px;color:var(--muted);font:11px/1.4 var(--sans)}
 .map-caption p:first-child {display:flex;align-items:center;gap:6px}
 .boundary-key {width:17px;border-top:1px solid #454643;display:inline-block}

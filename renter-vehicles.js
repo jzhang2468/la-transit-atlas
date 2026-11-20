@@ -246,7 +246,9 @@ async function start() {
     minZoom:7,maxZoom:15,dragRotate:false,pitchWithRotate:false,renderWorldCopies:false,attributionControl:false
   });
   map.touchZoomRotate.disableRotation();
-  map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');
+  const northArrow = document.querySelector('.north');
+  map.on('rotate', () => { northArrow.style.transform = 'rotate(' + (-map.getBearing()) + 'deg)'; });
+  map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-left');
   map.addControl(new maplibregl.ScaleControl({unit:'metric',maxWidth:90}),'bottom-left');
   map.once('load',()=>{
     try {
